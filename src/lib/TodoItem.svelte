@@ -1,18 +1,19 @@
 <script lang="ts">
-  import type { Todo, TodoStatus } from "../types/todo";
+  import type { Todo } from "../types/todo";
 
-  let { item }: { item: Todo } = $props();
-  let { status, title } = item;
+  type TodoItemProp = { item: Todo; onCheck: (id: Todo["id"]) => void };
+  let { item, onCheck }: TodoItemProp = $props();
 </script>
 
 <li>
   <input
     type="checkbox"
     name="check"
-    id={`check-${title}`}
-    checked={status === "done"}
+    id={`check-${item.title}`}
+    checked={item.done}
+    onchange={() => onCheck(item.id)}
   />
-  <input type="text" value={item.title} />
+  <input class:strike={item.done} type="text" value={item.title} />
 </li>
 
 <style>
@@ -28,5 +29,8 @@
   .created-at {
     font-style: italic;
     font-size: 0.8em;
+  }
+  .strike {
+    text-decoration: line-through;
   }
 </style>
