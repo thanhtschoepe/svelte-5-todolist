@@ -2,7 +2,7 @@
   import { useTodos } from "../data/todo.svelte.ts";
   import TodoItem from "./TodoItem.svelte";
 
-  let { todos, check } = useTodos();
+  let { todos, toggleDone: check } = useTodos();
 </script>
 
 <section>

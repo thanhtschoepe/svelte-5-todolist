@@ -68,14 +68,14 @@ export function useTodos() {
         done: false
       });
     },
-    check(id: Todo['id']) {
+    toggleDone(id: Todo['id']) {
       let item = state.get(id);
       if (!item) return;
 
-      console.log({
-        id
-      })
       state.set(id, { ...item, done: !item.done });
+    },
+    remove(id: Todo['id']) {
+      state.delete(id)
     }
   }
 }
