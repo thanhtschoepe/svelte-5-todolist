@@ -3,12 +3,15 @@
   import TodoItem from "./TodoItem.svelte";
   import * as Card from "$lib/components/ui/card";
   import { useFilters } from "../data/filterSearch.svelte";
+  import { useSort } from "../data/sort.svelte.ts";
 
   let { todos, toggleDone, remove, editTitle } = useTodos();
+  let { applySort } = useSort();
   let { applyFilter } = useFilters();
 
   let totalCount = $derived(Object.values(todos).length);
   let filtered = $derived(applyFilter(Object.values(todos)));
+  let sorted = $derived(applySort(filtered));
   let hasTodos = $derived(filtered.length > 0);
 </script>
 
@@ -21,7 +24,7 @@
     </Card.Header>
     <Card.Content>
       <ul class="flex flex-col gap-1">
-        {#each filtered as todo (todo.id)}
+        {#each sorted as todo (todo.id)}
           <TodoItem
             item={todo}
             onCheck={toggleDone}
