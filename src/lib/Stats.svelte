@@ -4,7 +4,7 @@
   import { Progress } from "$lib/components/ui/progress";
   import { compareAsc, formatDistanceToNow } from "date-fns";
 
-  let { todos } = useTodos();
+  let { todos: todos } = useTodos();
   let asArray = $derived(Object.values(todos));
 
   let remaining = $derived(asArray.filter((td) => !td.done).length);
@@ -24,16 +24,15 @@
 
 <Card.Root>
   <Card.Header>
-    <h1 class="text-2xl font-bold">Stats</h1>
     <Progress class="h-1" value={percentDone} />
   </Card.Header>
   <Card.Content>
     <ul class="flex justify-between">
       {#each stats as stat (stat.label)}
         <li>
-          <p class="font-bold text-3xl">
+          <span class="font-bold text-xl">
             {stat.value}
-          </p>
+          </span>
           <span>{stat.label}</span>
         </li>
       {/each}

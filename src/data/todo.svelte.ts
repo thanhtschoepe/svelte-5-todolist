@@ -43,44 +43,47 @@ const seedTodos: Todo[] = [
   },
 ];
 
-let myState = $state(Object.fromEntries(seedTodos.map(td => [td.id, td])));
+
+let repo = $state(Object.fromEntries(seedTodos.map(td => [td.id, td])));
 let _id = $state(seedTodos.length);
+
 
 export function useTodos() {
   return {
     get todos() {
-      return myState;
+      return repo;
     },
     add: (content: string) => {
       if (!content) return;
-
       _id += 1;
       const id = _id;
 
-      myState[id] = {
+      repo[id] = {
         id,
         title: content,
         owner: 'me',
         created_at: new Date().toISOString(),
         done: false
       };
+
     },
     toggleDone(id: Todo['id']) {
-      let item = myState[id];
+      let item = repo[id];
       if (!item) return;
 
       item.done = !item.done;
-      myState[id] = item;
+      repo[id] = item;
     },
     remove(id: Todo['id']) {
-      delete myState[id];
+      delete repo[id];
     },
     editTitle(id: Todo['id'], newTitle: string) {
-      const item = myState[id];
+      const item = repo[id];
       if (!item) return;
 
       item.title = newTitle;
-      myState[id] = item;
-    }
+      repo[id] = item;
+    },
+
   }
 }

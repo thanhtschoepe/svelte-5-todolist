@@ -13,20 +13,18 @@
   }
 </script>
 
-<div>
-  <form on:submit|preventDefault={onSubmit}>
-    <div class="flex items-end gap-2">
-      <div>
-        <Label for="create-input">New todo</Label>
-        <Input
-          class="mt-1"
-          id="create-input"
-          name="new-input"
-          type="text"
-          bind:value={content}
-        />
-      </div>
-      <Button type="submit">Add</Button>
+<form on:submit|preventDefault={onSubmit} class="col-span-4">
+  <div class="flex items-end gap-2">
+    <div class="grow">
+      <Label for="create-input">New todo</Label>
+      <Input
+        class="mt-1"
+        id="create-input"
+        name="new-input"
+        type="text"
+        bind:value={content}
+      />
     </div>
-  </form>
-</div>
+    <Button type="submit">Add</Button>
+  </div>
+</form>

@@ -3,7 +3,7 @@
   import { Checkbox } from "$lib/components/ui/checkbox";
   import { Input } from "$lib/components/ui/input";
   import { Button } from "$lib/components/ui/button";
-  import DeleteIcon from "~icons/ep/delete-filled";
+  import MageTrash2 from "~icons/mage/trash-2";
 
   type TodoItemProp = {
     item: Todo;
@@ -29,6 +29,6 @@
     on:change={(e) => onChange(item.id, e.currentTarget.value)}
   />
   <Button variant="ghost" class="h-8 px-3.5" on:click={() => onRemove(item.id)}>
-    <DeleteIcon />
+    <MageTrash2 />
   </Button>
 </li>

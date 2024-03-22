@@ -2,9 +2,14 @@
   import { useTodos } from "../data/todo.svelte.ts";
   import TodoItem from "./TodoItem.svelte";
   import * as Card from "$lib/components/ui/card";
+  import { useFilters } from "../data/filterSearch.svelte";
 
   let { todos, toggleDone, remove, editTitle } = useTodos();
-  let hasTodos = $derived(Object.keys(todos).length > 0);
+  let { applyFilter } = useFilters();
+
+  let totalCount = $derived(Object.values(todos).length);
+  let filtered = $derived(applyFilter(Object.values(todos)));
+  let hasTodos = $derived(filtered.length > 0);
 </script>
 
 <section>
@@ -16,7 +21,7 @@
     </Card.Header>
     <Card.Content>
       <ul class="flex flex-col gap-1">
-        {#each Object.entries(todos) as [id, todo] (id)}
+        {#each filtered as todo (todo.id)}
           <TodoItem
             item={todo}
             onCheck={toggleDone}
@@ -26,5 +31,10 @@
         {/each}
       </ul>
     </Card.Content>
+    <Card.Footer>
+      {#if totalCount !== filtered.length && !filtered.length}
+        <span>You have {totalCount} items hidden by filters.</span>
+      {/if}
+    </Card.Footer>
   </Card.Root>
 </section>
