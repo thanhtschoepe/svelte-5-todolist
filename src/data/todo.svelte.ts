@@ -46,7 +46,6 @@ const seedTodos: Todo[] = [
 
 let state = new Map(seedTodos.map(td => [td.id, td]));
 let _id = $state(seedTodos.length);
-$inspect(state).with(console.log);
 export function useTodos() {
 
 
@@ -72,10 +71,20 @@ export function useTodos() {
       let item = state.get(id);
       if (!item) return;
 
-      state.set(id, { ...item, done: !item.done });
+      item.done = !item.done;
+      state.set(id, item);
     },
     remove(id: Todo['id']) {
       state.delete(id)
+    },
+    editTitle(id: Todo['id'], newTitle: string) {
+      const item = state.get(id);
+      if (!item) {
+        return;
+      }
+
+      item.title = newTitle;
+      state.set(id, item);
     }
   }
 }
