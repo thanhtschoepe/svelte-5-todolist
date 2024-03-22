@@ -6,10 +6,16 @@
 </script>
 
 <main class="container px-16 py-32">
-  <section class="grid gap-4">
-    <ModeWatcher />
-    <CreateTodo />
-    <Todolist />
-    <Stats />
+  <ModeWatcher />
+  <section class="grid grid-cols-12 gap-4">
+    <div class="col-span-12">
+      <CreateTodo />
+    </div>
+    <div class="col-span-8">
+      <Todolist />
+    </div>
+    <div class="col-span-4">
+      <Stats />
+    </div>
   </section>
 </main>

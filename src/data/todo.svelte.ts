@@ -1,5 +1,4 @@
 import type { Todo } from '../types/todo';
-import { Map } from 'svelte/reactivity';
 
 const seedTodos: Todo[] = [
   {
@@ -44,14 +43,13 @@ const seedTodos: Todo[] = [
   },
 ];
 
-let state = new Map(seedTodos.map(td => [td.id, td]));
+let myState = $state(Object.fromEntries(seedTodos.map(td => [td.id, td])));
 let _id = $state(seedTodos.length);
+
 export function useTodos() {
-
-
   return {
     get todos() {
-      return state;
+      return myState;
     },
     add: (content: string) => {
       if (!content) return;
@@ -59,32 +57,30 @@ export function useTodos() {
       _id += 1;
       const id = _id;
 
-      state.set(id, {
+      myState[id] = {
         id,
         title: content,
         owner: 'me',
-        created_at: Date.now().toString(),
+        created_at: new Date().toISOString(),
         done: false
-      });
+      };
     },
     toggleDone(id: Todo['id']) {
-      let item = state.get(id);
+      let item = myState[id];
       if (!item) return;
 
       item.done = !item.done;
-      state.set(id, item);
+      myState[id] = item;
     },
     remove(id: Todo['id']) {
-      state.delete(id)
+      delete myState[id];
     },
     editTitle(id: Todo['id'], newTitle: string) {
-      const item = state.get(id);
-      if (!item) {
-        return;
-      }
+      const item = myState[id];
+      if (!item) return;
 
       item.title = newTitle;
-      state.set(id, item);
+      myState[id] = item;
     }
   }
 }

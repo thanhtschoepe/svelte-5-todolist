@@ -4,22 +4,19 @@
   import * as Card from "$lib/components/ui/card";
 
   let { todos, toggleDone, remove, editTitle } = useTodos();
-  let hasTodos = $derived([...todos.keys()].length > 0);
-
-  $inspect(hasTodos);
+  let hasTodos = $derived(Object.keys(todos).length > 0);
 </script>
 
 <section>
   <Card.Root>
     <Card.Header>
-      <h1 class="text-2xl font-bold tracking-tight">Your list</h1>
       {#if !hasTodos}
         <p class="text-secondary">No item. Try adding some.</p>
       {/if}
     </Card.Header>
     <Card.Content>
       <ul class="flex flex-col gap-1">
-        {#each todos as [id, todo] (id)}
+        {#each Object.entries(todos) as [id, todo] (id)}
           <TodoItem
             item={todo}
             onCheck={toggleDone}

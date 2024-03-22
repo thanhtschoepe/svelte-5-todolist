@@ -13,6 +13,7 @@
     "@iconify/json": "^2.2.194",
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@tsconfig/svelte": "^5.0.2",
+    "@types/node": "^20.11.30",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
     "postcss-load-config": "^5.0.2",

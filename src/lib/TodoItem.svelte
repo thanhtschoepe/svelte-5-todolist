@@ -22,7 +22,8 @@
     onCheckedChange={() => onCheck(item.id)}
   />
   <Input
-    class={(item.done ? "line-through" : "") + " h-8 border-none"}
+    class={(item.done ? "line-through text-secondary" : "") +
+      " h-8 border-none"}
     type="text"
     value={item.title}
     on:change={(e) => onChange(item.id, e.currentTarget.value)}
